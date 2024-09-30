@@ -1,0 +1,63 @@
+services:
+  multi_schema_service:
+    build: .
+    #restart: always
+    ports:
+      - 8081:8081
+    container_name: multidbserver
+      
+    environment:
+      - spring.svcomfortdb.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+      - spring.svcomfortdb.datasource.username=root
+      - spring.svcomfortdb.datasource.password=root
+      - spring.svcomfortdb.datasource.jdbcUrl=jdbc:mysql://mysql-slave:3306/savvis2_read
+      
+      - spring.hoteldb.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+      - spring.hoteldb.datasource.username=root
+      - spring.hoteldb.datasource.password=root
+      - spring.hoteldb.datasource.jdbcUrl=jdbc:mysql://mysql-master:3306/savvis2_read    
+      
+    networks:
+      - mysql-net
+   
+    depends_on:
+      - mysql-slave    
+    volumes:
+      - .m2:/root/.m2
+      
+  mysql-master:
+    image: "mysql:8"
+    container_name: mysql-master
+    command: --server-id=1 --log-bin=mysql-bin --binlog-format=row
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: savvis2_write
+      #MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    ports:
+      - 3316:3306 
+    networks:
+      - mysql-net
+
+
+  mysql-slave:
+    image: "mysql:8"
+    container_name: mysql-slave
+    depends_on:
+      - mysql-master
+    command: --server-id=2 --log-bin=mysql-bin --binlog-format=row
+    
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: savvis2_read
+      #MYSQL_USER: root
+      MYSQL_PASSWORD: root
+
+    ports:
+      - 3317:3306
+    networks:
+      - mysql-net
+
+networks:
+  mysql-net:

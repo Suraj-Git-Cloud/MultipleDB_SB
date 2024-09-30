@@ -54,9 +54,9 @@ public class HotelDB {
 	private Map<String, String> hibernateProperties() {
 
 		Map<String, String> hibernateProperties = new HashMap<String, String>();
-		hibernateProperties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+		hibernateProperties.put("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
 		hibernateProperties.put("hibernate.hbm2ddl.auto", "update");
-		hibernateProperties.put("hibernate.show_sql", "true");		
+		hibernateProperties.put("hibernate.show_sql", "true");	
 
 		return hibernateProperties;
 

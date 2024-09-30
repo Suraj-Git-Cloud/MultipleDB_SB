@@ -21,17 +21,15 @@ import com.svcomfort.svcomfortdb.repository.EmployeeRepository;
 
 
 @RestController
-@RequestMapping("/api/v1/svcomforts/db-service/employee")
+@RequestMapping("/employee")
 public class EmployeeController {
 	
 
 @Autowired
 EmployeeRepository repo;
 	
-@GetMapping("/")
-public List<Employee> getEmployees() {
-	
-	
+@GetMapping("/all")
+public List<Employee> getEmployees() {	
 	
 	return (List<Employee>) repo.findAll();
 }

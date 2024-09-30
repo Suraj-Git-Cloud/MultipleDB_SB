@@ -20,20 +20,21 @@ import com.svcomfort.svcomfortdb.model.Employee;
 import com.svcomfort.svcomfortdb.repository.EmployeeRepository;
 
 @RestController
-@RequestMapping("/api/v1/svcomforts/db-service/partner")
+@RequestMapping("/partner")
 public class PartnerController {
 	
 
 @Autowired
 PartnerRepository repo;
+
 	
-@GetMapping("/")
-public List<Partner> getPartners() {
-	
-	
+@GetMapping("/all")
+public List<Partner> getPartners() {		
 	
 	return (List<Partner>) repo.findAll();
 }
+
+
 
 @PostMapping("/addPartner")
 public ResponseEntity addPartner(@RequestBody Partner partner) {
