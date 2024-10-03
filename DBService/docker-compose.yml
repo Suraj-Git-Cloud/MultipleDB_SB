@@ -1,63 +1,50 @@
-services:
-  multi_schema_service:
-    build: .
-    #restart: always
-    ports:
-      - 8081:8081
-    container_name: multidbserver
-      
-    environment:
-      - spring.svcomfortdb.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-      - spring.svcomfortdb.datasource.username=root
-      - spring.svcomfortdb.datasource.password=root
-      - spring.svcomfortdb.datasource.jdbcUrl=jdbc:mysql://mysql-slave:3306/savvis2_read
-      
-      - spring.hoteldb.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-      - spring.hoteldb.datasource.username=root
-      - spring.hoteldb.datasource.password=root
-      - spring.hoteldb.datasource.jdbcUrl=jdbc:mysql://mysql-master:3306/savvis2_read    
-      
-    networks:
-      - mysql-net
-   
-    depends_on:
-      - mysql-slave    
-    volumes:
-      - .m2:/root/.m2
-      
+services:      
   mysql-master:
     image: "mysql:8"
     container_name: mysql-master
-    command: --server-id=1 --log-bin=mysql-bin --binlog-format=row
-
+    #restart: always
     environment:
+      DATABASE_HOST: 127.0.0.1
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: savvis2_write
-      #MYSQL_USER: root
+      MYSQL_DATABASE: savvis2_write      
       MYSQL_PASSWORD: root
+      #MYSQL_USER: root
     ports:
       - 3316:3306 
     networks:
       - mysql-net
+   
+   
 
 
-  mysql-slave:
-    image: "mysql:8"
-    container_name: mysql-slave
+
+  multi_schema_service:
+    container_name: multidbserver    
+    build:
+      context:  .
+      dockerfile: Dockerfile
+    #image: "spring-jdbc-template:0.0.1-SNAPSHOT"
+    ports:
+      - 8081:8081     
     depends_on:
       - mysql-master
-    command: --server-id=2 --log-bin=mysql-bin --binlog-format=row
-    
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: savvis2_read
-      #MYSQL_USER: root
-      MYSQL_PASSWORD: root
-
-    ports:
-      - 3317:3306
+    #environment:
+      #SPRING_DATASOURCE_URL: jdbc:mysql://mysql-master:3306/savvis2_read
+      #SPRING_DATASOURCE_USERNAME: root
+      #SPRING_DATASOURCE_PASSWORD: root      
     networks:
       - mysql-net
+      #- mysql-net2   
+    #depends_on:
+      #- mysql-slave  
+    #links: 
+      #- mysql-master 
+      #- mysql-slave     
+    volumes:
+      - .m2:/root/.m2
+      
 
 networks:
   mysql-net:
+  #mysql-net2:
+    driver: bridge
