@@ -17,9 +17,9 @@ public class EmployeeRepository {
 	@Qualifier("writeTemplate")
 	NamedParameterJdbcTemplate writeTemplate;
 	
-	/*@Autowired
+	@Autowired
 	@Qualifier("readTemplate")
-	NamedParameterJdbcTemplate readTemplate; */
+	NamedParameterJdbcTemplate readTemplate; 
 	
 
 	public List<Employee> findDb1List() {
@@ -29,22 +29,20 @@ public class EmployeeRepository {
 		System.out.println(" "+writeTemplate.getJdbcTemplate());
 
 		
-		return writeTemplate.queryForList("SELECT id, name FROM Employee", new HashMap());
+		return writeTemplate.queryForList("SELECT id, name FROM Employee ", new HashMap());
 
 	}
 	
-/*	public List<Employee> findDb2List() {
+	public List<Employee> findDb2List() {
 		System.out.println(" -------------------- QUERY To db2  ---------------------");
 
+
 		
-		//StringBuffer sb = new StringBuffer().append(" SELECT id, name	FROM  \"")
-		//		.append("School").append("\" ");
-		
-		String sb = "SELECT id, name	FROM School";
+		String sb = "SELECT id, name	FROM \"School\"  ";
 		
 		return readTemplate.queryForList(sb.toString(), new HashMap());
 
-	} */
+	} 
 
 
 }

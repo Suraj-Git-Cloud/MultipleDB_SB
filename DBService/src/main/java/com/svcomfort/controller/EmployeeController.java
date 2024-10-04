@@ -20,20 +20,19 @@ public class EmployeeController {
 	@GetMapping("/db1")
 	public List<Employee> getEmployees() {
 
-		
 		System.out.println(" -------------------- Connect To db1 CONTROLLER ---------------------");
-		
+
 		return (List<Employee>) repo.findDb1List();
 	}
 
 	
-
-	/*@GetMapping("/db2")
-	public List<Employee> getPerson() {
-
-		System.out.println(" -------------------- Connect To db2 CONTROLLER ---------------------");
-		return (List<Employee>) repo.findDb2List();
-	} */
-
+	  @GetMapping("/db2") 
+	  public List<Employee> getPerson() {
+	  
+	  System.out.
+	  println(" -------------------- Connect To db2 CONTROLLER ---------------------"); 
+	  
+	  return (List<Employee>) repo.findDb2List(); }
+	 
 
 }

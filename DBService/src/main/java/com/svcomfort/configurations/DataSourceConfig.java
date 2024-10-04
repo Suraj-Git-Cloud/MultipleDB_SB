@@ -39,7 +39,7 @@ public class DataSourceConfig {
 	}
 	
 	
-	/*@Bean(name = "savvis2_read")
+	@Bean(name = "savvis2_read")
 	@ConfigurationProperties(prefix = "spring.datasource.secondary")
 	public DataSource dataSource1() {
 		return DataSourceBuilder.create().build();
@@ -54,6 +54,6 @@ public class DataSourceConfig {
 	@Autowired
 	DataSourceTransactionManager tm1(@Qualifier("savvis2_read") DataSource datasource) {
 		return new DataSourceTransactionManager(datasource);
-	} */
+	} 
 
 }

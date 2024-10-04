@@ -4,7 +4,7 @@ services:
     container_name: mysql-master
     #restart: always
     environment:
-      DATABASE_HOST: 127.0.0.1
+      #DATABASE_HOST: 127.0.0.1
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: savvis2_write      
       MYSQL_PASSWORD: root
@@ -14,7 +14,21 @@ services:
     networks:
       - mysql-net
    
-   
+ 
+  mysql-slave:
+    image: "mysql:8"
+    container_name: mysql-slave
+    #restart: always
+    environment:
+      #DATABASE_HOST: 127.0.0.1
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: savvis2_read      
+      MYSQL_PASSWORD: root
+      #MYSQL_USER: root
+    ports:
+      - 3317:3306 
+    networks:
+      - mysql-net 
 
 
 
@@ -34,7 +48,6 @@ services:
       #SPRING_DATASOURCE_PASSWORD: root      
     networks:
       - mysql-net
-      #- mysql-net2   
     #depends_on:
       #- mysql-slave  
     #links: 
@@ -46,5 +59,4 @@ services:
 
 networks:
   mysql-net:
-  #mysql-net2:
     driver: bridge
