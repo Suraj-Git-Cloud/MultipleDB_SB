@@ -40,7 +40,7 @@ public class DataSourceConfig {
 	
 	
 	@Bean(name = "savvis2_read")
-	@ConfigurationProperties(prefix = "spring.datasource.secondary")
+	@ConfigurationProperties(prefix = "spring.secondary-datasource")
 	public DataSource dataSource1() {
 		return DataSourceBuilder.create().build();
 	}

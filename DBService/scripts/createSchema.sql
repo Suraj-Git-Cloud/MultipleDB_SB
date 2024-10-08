@@ -1,0 +1,9 @@
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%'  IDENTIFIED BY 'root' WITH GRANT OPTION;
+
+
+CREATE DATABASE savvis2_write;
+
+CREATE DATABASE savvis2_read;
+
+
+

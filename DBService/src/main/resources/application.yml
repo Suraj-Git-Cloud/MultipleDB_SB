@@ -1,0 +1,20 @@
+server:
+  port: 8081
+write-database: savvis2_write
+
+spring:
+  application:
+    name: DBService
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://mysqldb:3306/savvis2_write?useSSL=false&allowPublicKeyRetrieval=true
+    username: root    
+    password: root
+    
+    
+  secondary-datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://mysqldb:3306/savvis2_read?useSSL=false&allowPublicKeyRetrieval=true
+    username: root    
+    password: root
+
