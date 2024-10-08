@@ -5,15 +5,11 @@ services:
     container_name: mysqldb
     restart: always
     environment:
-      #MYSQL_ROOT_HOST: 127.0.0.1
       MYSQL_ROOT_PASSWORD: root
-      #MYSQL_DATABASE: savvis2_write      
-      #MYSQL_PASSWORD: root
-      #MYSQL_USER: root
+
     ports:
       - 3316:3306
-    #expose:
-      #- 3306
+
     volumes:
       - mysql_data:/var/lib/mysql
       - ./scripts/createSchema.sql:/docker-entrypoint-initdb.d/1.sql
